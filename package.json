@@ -1,0 +1,29 @@
+{
+  "name": "aws-recycle",
+  "version": "1.0.0",
+  "description": "Remove ALL resources in AWS account so it can be recycled.",
+  "main": "index.js",
+  "bin": {
+    "recycle": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clifflu/aws-recycle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/clifflu/aws-recycle/issues"
+  },
+  "homepage": "https://github.com/clifflu/aws-recycle#readme",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "aws-sdk": "^2.89.0",
+    "bluebird": "^3.5.0",
+    "winston": "^2.3.1"
+  }
+}
