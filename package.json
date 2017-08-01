@@ -23,6 +23,8 @@
   "dependencies": {
     "argparse": "^1.0.9",
     "aws-sdk": "^2.89.0",
+    "bluebird": "^3.5.0",
+    "extend": "^3.0.1",
     "winston": "^2.3.1"
   }
 }

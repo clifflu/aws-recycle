@@ -1,8 +1,13 @@
+let seconds = 1000
+let minutes = 60 * seconds
+
 module.exports = Object.freeze({
-  pollWait: 2000,
+  poll: Object.freeze({
+    wait: 2 * seconds,
+    timeout: 2 * minutes
+  }),
   regions: Object.freeze([
-    'us-east-1',
-    'us-west-2'
+    'us-east-1'
   ]),
   services: Object.freeze([
     'asg',
