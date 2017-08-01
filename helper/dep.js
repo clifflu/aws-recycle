@@ -1,7 +1,12 @@
 
 const winston = require('winston')
 
-module.exports = (moduleName, dependencies, payload, facade) => {
+/**
+ * Ensure module facade is called after all its dependencies were fulfilled,
+ * returning (Promise) payload whether module and/or its dependencies were cached.
+ *
+ */
+function dep (moduleName, dependencies, payload, facade) {
   winston.debug(`@deps (${moduleName}, [${dependencies}], ${JSON.stringify(payload)})`)
   function loadDependency (dep) {
     if (!payload.dep[dep]) {
@@ -23,6 +28,9 @@ module.exports = (moduleName, dependencies, payload, facade) => {
     dependencies.map(dep => loadDependency(dep))
   )
     .then(() => facade(payload))
+    .then(() => payload)
 
   return payload.dep[moduleName]
 }
+
+module.exports = dep
