@@ -2,10 +2,9 @@
  *
  */
 
-const moduleName = "lambda"
+const moduleName = 'lambda'
 const dependencies = []
 
-const Promise = require('bluebird')
 const winston = require('winston')
 
 const dep = require('../helper/dep')

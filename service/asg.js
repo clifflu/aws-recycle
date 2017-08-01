@@ -2,10 +2,9 @@
  *
  */
 
-const moduleName = "asg"
+const moduleName = 'asg'
 const dependencies = []
 
-const Promise = require('bluebird')
 const winston = require('winston')
 
 const dep = require('../helper/dep')

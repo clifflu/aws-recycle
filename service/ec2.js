@@ -11,7 +11,6 @@
 const moduleName = 'ec2'
 const dependencies = ['asg']
 
-const Promise = require('bluebird')
 const winston = require('winston')
 
 const config = require('../config')

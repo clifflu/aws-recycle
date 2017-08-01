@@ -7,11 +7,10 @@
  *
  */
 
-const moduleName = "vpc"
+const moduleName = 'vpc'
 const dependencies = ['ec2', 'rds', 'lambda']
 
 const AWS = require('aws-sdk')
-const Promise = require('bluebird')
 const winston = require('winston')
 
 const dep = require('../helper/dep')
@@ -36,14 +35,14 @@ function deleteVpcs (payload) {
 }
 
 function facade (payload) {
-  winston.info("Removing VPC resources")
+  winston.info('Removing VPC resources')
   return Promise.all([
     deleteSecurityGroups(payload),
-    deleteNetworkAcl(payload),
+    deleteNetworkAcl(payload)
   ]).then(() => payload)
   .then(deleteSubnets)
   .then(deleteVpcs)
-  .then(r => winston.info("VPC completed") || r)
+  .then(r => winston.info('VPC completed') || r)
 }
 
 module.exports = payload => dep(moduleName, dependencies, payload, facade)
