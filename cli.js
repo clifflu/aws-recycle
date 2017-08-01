@@ -1,23 +1,8 @@
 #!/usr/bin/env node
 
-const services = [
-  'asg',
-  'cloudwatch',
-  'ec2',
-  'ecr',
-  'ecs',
-  'iam',
-  'lambda',
-  'logs',
-  'rds',
-  's3',
-  'sns',
-  'sqs',
-  'vpc'
-]
-
 const winston = require('winston')
 
+const config = require('./config')
 const args = require('./helper/args')()
 
 winston.configure({
@@ -31,10 +16,17 @@ winston.configure({
   ]
 })
 
-const payload = {
-  dep: {}
+const promises = []
+
+for (let region of config.regions) {
+  let payload = {region: region, dep: {}}
+
+  promises.push(
+    Promise.all(
+      config.services.map(svc => require(`./service/${svc}`)(payload))
+    ).then(() => payload)
+  )
 }
 
-Promise.all(services.map(service => require(`./service/${service}`)(payload)))
-  .then(() => payload)
+Promise.all(promises)
   .then(console.log)
