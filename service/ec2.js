@@ -17,14 +17,13 @@ const config = require('../config')
 const dep = require('../helper/dep')
 const filename = __filename.split('/').splice(-2).join('/')
 
-
-function deleteSpotFleets (payload) {
-  return Promise.resolve(payload)
-}
-
-function deleteSpotRequests (payload) {
-  return payload
-}
+// function deleteSpotFleets (payload) {
+//   return Promise.resolve(payload)
+// }
+//
+// function deleteSpotRequests (payload) {
+//   return payload
+// }
 
 function deleteInstances (payload) {
   return payload
@@ -35,13 +34,12 @@ function deleteKeyPairs (payload) {
 }
 
 function facade (payload) {
-  winston.info(`Removing EC2 resources`)
+  winston.info(`<${payload.region}> Removing EC2 resources`)
 
-  return deleteSpotFleets(payload)
-    .then(deleteSpotRequests)
-    .then(deleteInstances)
-    .then(deleteKeyPairs)
-    .then(r => winston.info(`EC2 completed`) || r)
+  return Promise.all([
+    deleteInstances(payload),
+    deleteKeyPairs(payload)
+  ]).then(() => winston.info(`<${payload.region}> EC2 completed`))
 }
 
 module.exports = payload => dep(moduleName, dependencies, payload, facade)
